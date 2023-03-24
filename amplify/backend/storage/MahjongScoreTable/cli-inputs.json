@@ -1,0 +1,14 @@
+{
+  "resourceName": "MahjongScoreTable",
+  "tableName": "MahjongScoreTable",
+  "partitionKey": {
+    "fieldName": "AccountID",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "vsDate",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

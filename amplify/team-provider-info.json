@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mahjongscore-dev-152728-authRole",
+      "UnauthRoleArn": "arn:aws:iam::655548153160:role/amplify-mahjongscore-dev-152728-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::655548153160:role/amplify-mahjongscore-dev-152728-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mahjongscore-dev-152728-deployment",
+      "UnauthRoleName": "amplify-mahjongscore-dev-152728-unauthRole",
+      "StackName": "amplify-mahjongscore-dev-152728",
+      "StackId": "arn:aws:cloudformation:us-east-1:655548153160:stack/amplify-mahjongscore-dev-152728/caa22850-c943-11ed-a58d-0ab1627a082f",
+      "AmplifyAppId": "d3vrowv5ccs5en"
+    },
+    "categories": {
+      "auth": {
+        "mahjongscoref714cbb2": {}
+      },
+      "api": {
+        "mahjongscore": {}
+      },
+      "function": {
+        "S3Trigger02bcdf96": {
+          "deploymentBucketName": "amplify-mahjongscore-dev-152728-deployment",
+          "s3Key": "amplify-builds/S3Trigger02bcdf96-3344464859425669484e-build.zip"
+        }
+      },
+      "storage": {
+        "imageStorage": {},
+        "MahjongScoreTable": {}
+      }
+    }
+  }
+}

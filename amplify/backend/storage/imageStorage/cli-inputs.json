@@ -1,0 +1,14 @@
+{
+  "resourceName": "imageStorage",
+  "policyUUID": "9c720e27",
+  "bucketName": "mahjongscore-image-storage-tanabe",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger02bcdf96",
+  "groupAccess": {}
+}
