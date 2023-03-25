@@ -12,15 +12,7 @@ export const getAccount = /* GraphQL */ `
     }
   }
 `;
-export const createAccount = /* GraphQL */ `
-  mutation CreateAccount($input: CreateAccountInput!) {
-    createAccount(input: $input) {
-      id
-      name
-      description
-    }
-  }
-  `;
+
 export const listAccounts = /* GraphQL */ `
   query ListAccounts(
     $filter: ModelAccountFilterInput
@@ -39,12 +31,21 @@ export const listAccounts = /* GraphQL */ `
     }
   }
 `;
+
+export const createAccount = /* GraphQL */ `
+  mutation CreateAccount($input: CreateAccountInput!) {
+    createAccount(input: $input) {
+      id
+      name
+      description
+    }
+  }
+  `;
+
 export const getScore = /* GraphQL */ `
   query GetScore($id: ID!) {
     getScore(id: $id) {
       id
-      MatchDate
-      matchCount
       Player1ID
       Player2ID
       Player3ID
@@ -59,17 +60,20 @@ export const getScore = /* GraphQL */ `
       fourthplace
       createdAt
       updatedAt
+
     }
   }
 `;
+
+
+
 export const createScore = /* GraphQL */ `
   mutation CreateScore(
     $input: CreateScoreInput!
     $condition: ModelScoreConditionInput
   ) {
     createScore(input: $input, condition: $condition) {
-      MatchDate
-      matchCount
+      id
       Player1ID
       Player2ID
       Player3ID
@@ -86,6 +90,7 @@ export const createScore = /* GraphQL */ `
     }
   }
   `;
+
 export const listScores = /* GraphQL */ `
   query ListScores(
     $filter: ModelScoreFilterInput
@@ -95,8 +100,6 @@ export const listScores = /* GraphQL */ `
     listScores(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        MatchDate
-        matchCount
         Player1ID
         Player2ID
         Player3ID

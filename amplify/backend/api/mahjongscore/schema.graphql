@@ -9,6 +9,18 @@ type Account @model {
 }
 type Score @model {
   id: ID!
-  vsData: String
-  vsScore: String
+  MatchDate:String
+  matchCount:Int
+  Player1ID:ID
+  Player2ID:ID
+  Player3ID:ID
+  Player4ID:ID
+  Player1Score:Int
+  Player2Score:Int
+  Player3Score:Int
+  Player4Score:Int
+  firstplace:ID
+  secondplace:ID
+  thirdplace:ID
+  fourthplace:ID
 }

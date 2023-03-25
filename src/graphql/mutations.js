@@ -10,6 +10,8 @@ export const createAccount = /* GraphQL */ `
       id
       name
       description
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -48,8 +50,20 @@ export const createScore = /* GraphQL */ `
   ) {
     createScore(input: $input, condition: $condition) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }
@@ -62,8 +76,20 @@ export const updateScore = /* GraphQL */ `
   ) {
     updateScore(input: $input, condition: $condition) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }
@@ -76,8 +102,20 @@ export const deleteScore = /* GraphQL */ `
   ) {
     deleteScore(input: $input, condition: $condition) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }

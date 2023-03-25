@@ -38,8 +38,20 @@ export const onCreateScore = /* GraphQL */ `
   subscription OnCreateScore($filter: ModelSubscriptionScoreFilterInput) {
     onCreateScore(filter: $filter) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }
@@ -49,8 +61,20 @@ export const onUpdateScore = /* GraphQL */ `
   subscription OnUpdateScore($filter: ModelSubscriptionScoreFilterInput) {
     onUpdateScore(filter: $filter) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }
@@ -60,8 +84,20 @@ export const onDeleteScore = /* GraphQL */ `
   subscription OnDeleteScore($filter: ModelSubscriptionScoreFilterInput) {
     onDeleteScore(filter: $filter) {
       id
-      vsData
-      vsScore
+      MatchDate
+      matchCount
+      Player1ID
+      Player2ID
+      Player3ID
+      Player4ID
+      Player1Score
+      Player2Score
+      Player3Score
+      Player4Score
+      firstplace
+      secondplace
+      thirdplace
+      fourthplace
       createdAt
       updatedAt
     }
