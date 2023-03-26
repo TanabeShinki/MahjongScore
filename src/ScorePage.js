@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
+import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
 import { listAccounts, listScores } from "./graphql/queries";
