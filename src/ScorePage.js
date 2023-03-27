@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
+import { Form , Button ,Container, Row, Col } from 'react-bootstrap';
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
 import { listAccounts, listScores } from "./graphql/queries";
@@ -66,7 +67,7 @@ function App({ signOut, user }) {
       console.log("error fetching accounts", error);
     }
   }
-  
+
   function getToday() {
     const today = new Date();
     const year = today.getFullYear();
@@ -82,7 +83,7 @@ function App({ signOut, user }) {
     // 1行目で選択されたアカウントIDをinputSetsに格納
     if (index === 0) {
       newInputSets[index][event.target.name] = event.target.value;
-     }
+    }
 
     // 2行目以降はスコアをinputSetsに格納
     if (index !== 0) {
@@ -144,79 +145,99 @@ function App({ signOut, user }) {
   const navigate = useNavigate()
 
   return (
-    <div className="App">
-      <h1 align="center">Mahjong Score Input</h1>
-      <table align="center">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Player 1</th>
-            <th>Player 2</th>
-            <th>Player 3</th>
-            <th>Player 4</th>
-          </tr>
-        </thead>
+    <Container>
+      <h1 className="mt-5 text-center">Mahjong Score Input</h1>
+      <Row className="my-3">
+        <Col>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Player 1</th>
+                <th>Player 2</th>
+                <th>Player 3</th>
+                <th>Player 4</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          {inputSets.map((inputSet, index) => (
-            <tr key={index}>
-              <td>
-                {index === 0
-                  ? ''
-                  : `${inputSet.date} Match ${inputSet.matchCount}`}
-              </td>
-              {['accountId1', 'accountId2', 'accountId3', 'accountId4'].map((key) => (
-                <td key={key}>
-                  {index === 0 ? (
-                    <select
-                      name={key}
-                      value={inputSet[key]}
-                      onChange={(event) => handleInputChange(index, event)}
-                    >
-                      <option value="">Select Account</option>
-                      {accountList.map((account) => (
-                        <option key={account.id} value={account.id}>
-                          {account.name}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      type="number"
-                      name={`value${key.slice(-1)}`}
-                      value={inputSet[`value${key.slice(-1)}`]}
-                      onChange={(event) => handleInputChange(index, event)}
-                      aria-label={`Score ${key.slice(-1)}`}
-                    />
+            <tbody>
+              {inputSets.map((inputSet, index) => (
+                <tr key={index}>
+                  <td>
+                    {index === 0
+                      ? ''
+                      : `${inputSet.date} Match ${inputSet.matchCount}`}
+                  </td>
+                  {['accountId1', 'accountId2', 'accountId3', 'accountId4'].map((key) => (
+                    <td key={key}>
+                      {index === 0 ? (
+                        <Form.Control
+                          as="select"
+                          name={key}
+                          value={inputSet[key]}
+                          onChange={(event) => handleInputChange(index, event)}
+                        >
+                          <option value="">Select Account</option>
+                          {accountList.map((account) => (
+                            <option key={account.id} value={account.id}>
+                              {account.name}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      ) : (
+                        <Form.Control
+                          type="number"
+                          name={`value${key.slice(-1)}`}
+                          value={inputSet[`value${key.slice(-1)}`]}
+                          onChange={(event) => handleInputChange(index, event)}
+                          aria-label={`Score ${key.slice(-1)}`}
+                        />
 
-                  )}
-                </td>
+                      )}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
+            </tbody>
 
-      </table>
-      <button align="center" onClick={handleAddInputSet} style={{ marginTop: '10px' }}>
-        Add More Input Set
-      </button>
-      <button align="center" onClick={signOut} style={{ marginTop: '10px', marginLeft: '10px', marginRight: '10px' }}>
-        Sign out
-      </button>
-      <button align="center" onClick={InputDB} style={{ marginTop: '10px' }}>
-        Registration
-      </button>
-      <h1 align="center">Create Account</h1>
-      <input align="center"
-        onChange={e => setFormData({ ...formData, 'name': e.target.value })}
-        placeholder="name"
-        value={formData.name}
-      />
-      <button align="center" onClick={AddAccount}>Create Account</button>
-      <div>
-        <button align="center" onClick={() => navigate('/List')}>画面遷移します！</button>
+          </table>
+          <div className="text-center my-3">
+            <Button variant="primary" onClick={handleAddInputSet}>
+              Add More Input Set
+            </Button>
+            <Button variant="success" onClick={InputDB} className="mx-2">
+              Registration
+            </Button>
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <h2 className="mt-5 text-center">Create Account</h2>
+          <Form.Control
+            className="my-3"
+            onChange={(e) => setFormData({ ...formData, 'name': e.target.value })}
+            placeholder="name"
+            value={formData.name}
+          />
+          <div className="text-center my-3">
+            <Button variant="primary" onClick={AddAccount}>
+              Create Account
+            </Button>
+          </div>
+        </Col>
+      </Row>
+
+      <div className="text-center">
+        <Button variant="info" onClick={() => navigate('/List')}>
+          Move to List screen
+        </Button>
+        <Button variant="danger" onClick={signOut} className="mx-2">
+              Sign out
+            </Button>
       </div>
-    </div>
+    </Container>
   );
 }
 
