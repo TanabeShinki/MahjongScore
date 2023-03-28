@@ -40,7 +40,6 @@ function ListPage() {
           }
         }
       });
-      alert(event.target.value)
       setScoreList(apiData.data.listScores.items);
     } catch (error) {
       console.log("error fetching scores", error);
