@@ -78,7 +78,7 @@ function ListPage() {
               </Form.Group>
             </Form>
             <div className="text-center my-3">
-              <Button variant="info" onClick={() => navigate('/')}>入力画面に戻ルよ</Button>
+              <Button variant="info" onClick={() => navigate('/')}>対局データの入力ページに戻る</Button>
             </div>
             {selectedAccount && (
               <div>

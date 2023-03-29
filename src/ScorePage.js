@@ -98,7 +98,18 @@ function App({ signOut, user }) {
   async function InputDB() {
     try {
       for (let i = 1; i < inputSets.length; i++) {
-
+        const values = [
+          Number(inputSets[i].value1),
+          Number(inputSets[i].value2),
+          Number(inputSets[i].value3),
+          Number(inputSets[i].value4),
+        ];
+        const sortedValues = values.sort((a, b) => b - a);
+        const firstplace = inputSets[i][`accountId${values.indexOf(sortedValues[0]) + 1}`];
+        const secondplace = inputSets[i][`accountId${values.indexOf(sortedValues[1]) + 1}`];
+        const thirdplace = inputSets[i][`accountId${values.indexOf(sortedValues[2]) + 1}`];
+        const fourthplace = inputSets[i][`accountId${values.indexOf(sortedValues[3]) + 1}`];
+  
         const data = {
           MatchDate: inputSets[i].date.toString(),
           matchCount: inputSets[i].matchCount,
@@ -110,19 +121,21 @@ function App({ signOut, user }) {
           Player2Score: inputSets[i].value2,
           Player3Score: inputSets[i].value3,
           Player4Score: inputSets[i].value4,
-          firstplace: inputSets[i].firstplace,
-          secondplace: inputSets[i].secondplace,
-          thirdplace: inputSets[i].thirdplace,
-          fourthplace: inputSets[i].fourthplace
+          firstplace: firstplace,
+          secondplace: secondplace,
+          thirdplace: thirdplace,
+          fourthplace: fourthplace
         };
-
+  
         await API.graphql({ query: createScore, variables: { input: data } });
       }
       console.log("Score added successfully!");
+      alert("スコアの登録が完了しました！")
     } catch (err) {
       console.log("Error adding score:", err);
     }
   }
+  
 
 
   function handleAddInputSet() {
@@ -146,7 +159,7 @@ function App({ signOut, user }) {
 
   return (
     <Container>
-      <h1 className="mt-5 text-center">Mahjong Score Input</h1>
+      <h1 className="mt-5 text-center">麻雀スコア入力ページ </h1>
       <Row className="my-3">
         <Col>
           <table className="table table-striped">
@@ -203,10 +216,10 @@ function App({ signOut, user }) {
           </table>
           <div className="text-center my-3">
             <Button variant="primary" onClick={handleAddInputSet}>
-              Add More Input Set
+              新しい対局データを入力
             </Button>
             <Button variant="success" onClick={InputDB} className="mx-2">
-              Registration
+              対局データの登録
             </Button>
           </div>
         </Col>
@@ -214,7 +227,7 @@ function App({ signOut, user }) {
 
       <Row>
         <Col>
-          <h2 className="mt-5 text-center">Create Account</h2>
+          <h2 className="mt-5 text-center">アカウント登録</h2>
           <Form.Control
             className="my-3"
             onChange={(e) => setFormData({ ...formData, 'name': e.target.value })}
@@ -223,19 +236,22 @@ function App({ signOut, user }) {
           />
           <div className="text-center my-3">
             <Button variant="primary" onClick={AddAccount}>
-              Create Account
+              登録
             </Button>
           </div>
         </Col>
       </Row>
 
       <div className="text-center">
-        <Button variant="info" onClick={() => navigate('/List')}>
-          Move to List screen
+        <Button variant="info" onClick={() => navigate('/List')}  className="mx-2">
+          対局データ一覧の検索
+        </Button>
+        <Button variant="info" onClick={() => navigate('/Analysis')}  className="mx-2">
+          対局データの分析
         </Button>
         <Button variant="danger" onClick={signOut} className="mx-2">
               Sign out
-            </Button>
+        </Button>
       </div>
     </Container>
   );
