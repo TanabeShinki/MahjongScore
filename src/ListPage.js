@@ -51,15 +51,19 @@ function ListPage() {
     return account ? account.name : "";
   };
 
-  const scoreListByDate = {};
+  let scoreListByGroup = {};
   if (scoreList !== null) {
-    scoreList.forEach((score) => {
-      if (!scoreListByDate[score.MatchDate]) {
-        scoreListByDate[score.MatchDate] = [];
+    scoreListByGroup = scoreList.reduce((acc, curr) => {
+      const key = `${curr.MatchDate}_${curr.Player1ID}_${curr.Player2ID}_${curr.Player3ID}_${curr.Player4ID}`;
+      if (acc[key]) {
+        acc[key].push(curr);
+      } else {
+        acc[key] = [curr];
       }
-      scoreListByDate[score.MatchDate].push(score);
-    });
+      return acc;
+    }, {});
   }
+
   return (
     <Container>
       <Row>
@@ -82,21 +86,21 @@ function ListPage() {
             </div>
             {selectedAccount && (
               <div>
-                {Object.keys(scoreListByDate).map((date, index) => (
-                  <div key={index}>
-                    <h2>{date}</h2>
+                {Object.keys(scoreListByGroup).map((date) => (
+                  <div key={date}>
+                    <h2>{scoreListByGroup[date][0]?.MatchDate}</h2>
                     <Table striped bordered hover>
                       <thead>
                         <tr>
                           <th>Date</th>
-                          <th>{getAccountNameById(scoreListByDate[date][0]?.Player1ID)}</th>
-                          <th>{getAccountNameById(scoreListByDate[date][0]?.Player2ID)}</th>
-                          <th>{getAccountNameById(scoreListByDate[date][0]?.Player3ID)}</th>
-                          <th>{getAccountNameById(scoreListByDate[date][0]?.Player4ID)}</th>
+                          <th>{getAccountNameById(scoreListByGroup[date][0]?.Player1ID)}</th>
+                          <th>{getAccountNameById(scoreListByGroup[date][0]?.Player2ID)}</th>
+                          <th>{getAccountNameById(scoreListByGroup[date][0]?.Player3ID)}</th>
+                          <th>{getAccountNameById(scoreListByGroup[date][0]?.Player4ID)}</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {scoreListByDate[date].map((score) => (
+                        {scoreListByGroup[date].map((score) => (
                           <tr key={score.id}>
                             <td>{score.MatchDate}</td>
                             <td>{score.Player1Score}</td>
@@ -108,8 +112,8 @@ function ListPage() {
                       </tbody>
                     </Table>
                   </div>
-
                 ))}
+
               </div>
             )}
           </div>
@@ -117,6 +121,8 @@ function ListPage() {
       </Row>
     </Container>
   );
+
+
 }
 
 export default ListPage;

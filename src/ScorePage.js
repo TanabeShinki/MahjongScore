@@ -87,8 +87,10 @@ function App({ signOut, user }) {
 
     // 2行目以降はスコアをinputSetsに格納
     if (index !== 0) {
-      const accountIdKey = `accountId${event.target.name.slice(-1)}`;
-      newInputSets[index][event.target.name] = event.target.value;
+      const keyIndex = event.target.name.slice(-1);
+      const accountIdKey = `accountId${keyIndex}`;
+      const valueKey = `value${keyIndex}`;
+      newInputSets[index][valueKey] = event.target.value;
       newInputSets[index][accountIdKey] = newInputSets[0][accountIdKey];
     }
 
@@ -104,8 +106,12 @@ function App({ signOut, user }) {
           Number(inputSets[i].value3),
           Number(inputSets[i].value4),
         ];
-        const sortedValues = values.sort((a, b) => b - a);
+        const sortedValues = values.slice().sort((a, b) => b - a);
+
         const firstplace = inputSets[i][`accountId${values.indexOf(sortedValues[0]) + 1}`];
+        if(firstplace === "2"){
+          alert("黒岩君が1着の局があるようです。入力しなおしてください。そんなことがあるわけないです。")
+        }
         const secondplace = inputSets[i][`accountId${values.indexOf(sortedValues[1]) + 1}`];
         const thirdplace = inputSets[i][`accountId${values.indexOf(sortedValues[2]) + 1}`];
         const fourthplace = inputSets[i][`accountId${values.indexOf(sortedValues[3]) + 1}`];
@@ -128,6 +134,8 @@ function App({ signOut, user }) {
         };
   
         await API.graphql({ query: createScore, variables: { input: data } });
+
+
       }
       console.log("Score added successfully!");
       alert("スコアの登録が完了しました！")
