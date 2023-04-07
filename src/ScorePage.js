@@ -79,12 +79,12 @@ function App({ signOut, user }) {
 
   function handleInputChange(index, event) {
     const newInputSets = [...inputSets];
-  
+
     // 1行目で選択されたアカウントIDをinputSetsに格納
     if (index === 0) {
       newInputSets[index][event.target.name] = event.target.value;
     }
-  
+
     // 2行目以降はスコアをinputSetsに格納
     if (index !== 0) {
       const keyIndex = event.target.name.slice(-1);
@@ -93,7 +93,7 @@ function App({ signOut, user }) {
       newInputSets[index][valueKey] = event.target.value;
       newInputSets[index][accountIdKey] = newInputSets[0][accountIdKey];
     }
-  
+
     setInputSets(newInputSets);
   }
   function handleAddInputSet() {
@@ -112,7 +112,7 @@ function App({ signOut, user }) {
     };
     setInputSets([...inputSets, newInputSet]);
   }
-  
+
 
   async function InputDB() {
     try {
@@ -276,13 +276,16 @@ function App({ signOut, user }) {
         </Col>
       </Row>
 
-      <div className="text-center">
+      <div className="mt-3 text-center">
         <Button variant="info" onClick={() => navigate('/List')} className="mx-2">
-          対局データ一覧の検索
+          対局データ一覧
         </Button>
         <Button variant="info" onClick={() => navigate('/RankingTop')} className="mx-2">
-          ランキングトップページ
+          ランキングトップ
         </Button>
+
+      </div>
+      <div className="mt-3 text-center">
         <Button variant="danger" onClick={signOut} className="mx-2">
           Sign out
         </Button>

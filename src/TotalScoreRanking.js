@@ -79,10 +79,6 @@ function TotalScoreRanking({ signOut, user }) {
     const topScores = Object.keys(totalScores).sort((a, b) => {
       return totalScores[b] - totalScores[a];
     });
-    // alert(totalScores[0])
-    // alert(topScores[1])
-    // alert(totalScores[0])
-    // alert(topScores[1])
 
     return topScores;
   }
@@ -98,7 +94,7 @@ function TotalScoreRanking({ signOut, user }) {
 
     return (
       <div>
-        <h3>合計得点ランキング</h3>
+        <br></br>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -125,15 +121,15 @@ function TotalScoreRanking({ signOut, user }) {
   
   return (
     <Container>
-      <h1 className="mt-5 text-center">麻雀スコア分析ページ</h1>
-      <div className="text-center my-3">
-        <Button variant="primary" onClick={() => navigate('/')}>
-          対局データの入力ページに戻る
-        </Button>
-        <Button variant="danger" onClick={signOut} className="mx-2">
-          Sign out
-        </Button>
-      </div>
+      <h1 className="mt-5 text-center">合計スコアランキング</h1>
+        <div className="mt-2 text-center">
+          <Button variant="info" onClick={() => navigate('/')} className="mx-2">対局データの入力ページ</Button>
+          <Button variant="info" onClick={() => navigate('/List')} className="mx-2">対局データ一覧</Button>
+          <Button variant="info" onClick={() => navigate('/RankingTop')} className="mx-2">ランキングトップ</Button>
+        </div>
+        <div className="mt-2 text-center">
+          <Button variant="secondary" onClick={() => navigate('/TotalTopRanking')} className="mx-2">トータルトップランキング</Button>
+        </div>
       {renderGraph()}
     </Container>
   );

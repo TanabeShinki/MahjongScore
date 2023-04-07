@@ -71,7 +71,7 @@ function ListPage() {
             <h1 className="mt-5 text-center">Mahjong Score List</h1>
             <Form className="my-3">
               <Form.Group controlId="formAccountSelect">
-                <Form.Label>Select account:</Form.Label>
+                <Form.Label>表示したいアカウントを選択してください</Form.Label>
                 <Form.Control as="select" value={selectedAccount} onChange={handleSelectChange}>
                   <option value="">--Please select an account--</option>
                   {accountList.map((account) => (
@@ -81,7 +81,7 @@ function ListPage() {
               </Form.Group>
             </Form>
             <div className="text-center my-3">
-              <Button variant="info" onClick={() => navigate('/')}>対局データの入力ページに戻る</Button>
+              <Button variant="info" onClick={() => navigate('/')}>対局データの入力ページ</Button>
             </div>
             {selectedAccount && (
               <div>
