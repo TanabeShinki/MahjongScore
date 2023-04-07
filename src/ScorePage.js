@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
-import { Form , Button ,Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
 import { listAccounts, listScores } from "./graphql/queries";
@@ -79,12 +79,12 @@ function App({ signOut, user }) {
 
   function handleInputChange(index, event) {
     const newInputSets = [...inputSets];
-
+  
     // 1行目で選択されたアカウントIDをinputSetsに格納
     if (index === 0) {
       newInputSets[index][event.target.name] = event.target.value;
     }
-
+  
     // 2行目以降はスコアをinputSetsに格納
     if (index !== 0) {
       const keyIndex = event.target.name.slice(-1);
@@ -93,9 +93,26 @@ function App({ signOut, user }) {
       newInputSets[index][valueKey] = event.target.value;
       newInputSets[index][accountIdKey] = newInputSets[0][accountIdKey];
     }
-
+  
     setInputSets(newInputSets);
   }
+  function handleAddInputSet() {
+    const newMatchCount = inputSets[inputSets.length - 1].matchCount + 1;
+    const newInputSet = {
+      date: getToday(),
+      matchCount: newMatchCount,
+      accountId1: "",
+      accountId2: "",
+      accountId3: "",
+      accountId4: "",
+      value1: "",
+      value2: "",
+      value3: "",
+      value4: "",
+    };
+    setInputSets([...inputSets, newInputSet]);
+  }
+  
 
   async function InputDB() {
     try {
@@ -109,13 +126,13 @@ function App({ signOut, user }) {
         const sortedValues = values.slice().sort((a, b) => b - a);
 
         const firstplace = inputSets[i][`accountId${values.indexOf(sortedValues[0]) + 1}`];
-        if(firstplace === "2"){
+        if (firstplace === "2") {
           alert("黒岩君が1着の局があるようです。入力しなおしてください。そんなことがあるわけないです。")
         }
         const secondplace = inputSets[i][`accountId${values.indexOf(sortedValues[1]) + 1}`];
         const thirdplace = inputSets[i][`accountId${values.indexOf(sortedValues[2]) + 1}`];
         const fourthplace = inputSets[i][`accountId${values.indexOf(sortedValues[3]) + 1}`];
-  
+
         const data = {
           MatchDate: inputSets[i].date.toString(),
           matchCount: inputSets[i].matchCount,
@@ -132,7 +149,7 @@ function App({ signOut, user }) {
           thirdplace: thirdplace,
           fourthplace: fourthplace
         };
-  
+
         await API.graphql({ query: createScore, variables: { input: data } });
 
 
@@ -143,7 +160,7 @@ function App({ signOut, user }) {
       console.log("Error adding score:", err);
     }
   }
-  
+
 
 
   function handleAddInputSet() {
@@ -219,6 +236,15 @@ function App({ signOut, user }) {
                   ))}
                 </tr>
               ))}
+              <tr>
+                <td>合計</td>
+                {['accountId1', 'accountId2', 'accountId3', 'accountId4'].map((key) => (
+                  <td key={key}>
+                    {inputSets.slice(1).reduce((sum, inputSet) => sum + Number(inputSet[`value${key.slice(-1)}`]), 0)}
+                  </td>
+                ))}
+              </tr>
+
             </tbody>
 
           </table>
@@ -251,14 +277,14 @@ function App({ signOut, user }) {
       </Row>
 
       <div className="text-center">
-        <Button variant="info" onClick={() => navigate('/List')}  className="mx-2">
+        <Button variant="info" onClick={() => navigate('/List')} className="mx-2">
           対局データ一覧の検索
         </Button>
-        <Button variant="info" onClick={() => navigate('/Analysis')}  className="mx-2">
-          対局データの分析
+        <Button variant="info" onClick={() => navigate('/RankingTop')} className="mx-2">
+          ランキングトップページ
         </Button>
         <Button variant="danger" onClick={signOut} className="mx-2">
-              Sign out
+          Sign out
         </Button>
       </div>
     </Container>

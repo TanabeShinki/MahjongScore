@@ -63,7 +63,6 @@ function ListPage() {
       return acc;
     }, {});
   }
-
   return (
     <Container>
       <Row>
@@ -109,6 +108,13 @@ function ListPage() {
                             <td>{score.Player4Score}</td>
                           </tr>
                         ))}
+                        <tr>
+                          <td>合計</td>
+                          <td>{scoreListByGroup[date].reduce((total, score) => total + score.Player1Score, 0)}</td>
+                          <td>{scoreListByGroup[date].reduce((total, score) => total + score.Player2Score, 0)}</td>
+                          <td>{scoreListByGroup[date].reduce((total, score) => total + score.Player3Score, 0)}</td>
+                          <td>{scoreListByGroup[date].reduce((total, score) => total + score.Player4Score, 0)}</td>
+                        </tr>
                       </tbody>
                     </Table>
                   </div>
@@ -121,7 +127,6 @@ function ListPage() {
       </Row>
     </Container>
   );
-
 
 }
 
